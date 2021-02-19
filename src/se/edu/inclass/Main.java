@@ -25,7 +25,7 @@ public class Main {
 
         System.out.println("Filter tasks by String");
         printData(filterTaskByString(tasksData, "11"));
-
+        
     }
 
     private static int countDeadlines(ArrayList<Task> tasksData) {
@@ -38,10 +38,23 @@ public class Main {
         return count;
     }
 
+    private static int countDeadlinesWithStreams(ArrayList<Task> tasksData) {
+        int count = (int) tasksData.stream()
+                                   .filter(t -> t instanceof Deadline)
+                                   .count();
+        return count;
+    }
+
     public static void printData(ArrayList<Task> tasksData) {
         for (Task t : tasksData) {
             System.out.println(t);
         }
+    }
+
+    public static void printDataWithStreams(ArrayList<Task> taskData) {
+        System.out.println("Printing tasks using streams.");
+        taskData.stream()
+                .forEach(System.out::println);
     }
 
     public static void printDeadlines(ArrayList<Task> tasksData) {
@@ -66,5 +79,6 @@ public class Main {
                          .filter(s -> s.getDescription().contains(filterString))
                          .collect(toList());
         return filteredList;
+
     }
 }
